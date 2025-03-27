@@ -17,7 +17,9 @@ const headings = [...content.matchAll(/^(#{1,6})\s(.+)/gm)].map(match => ({
 let hierarchy = [];
 for (let i = 0; i < headings.length; i++) {
     if (headings[i].index < editor.posToOffset(cursorPos)) {
-        hierarchy.push(headings[i].text);
+        // Ensure that same-level headings overwrite previous ones
+        hierarchy[headings[i].level - 1] = headings[i].text;
+        hierarchy = hierarchy.slice(0, headings[i].level); // Remove deeper levels
     } else {
         break;
     }
@@ -26,7 +28,7 @@ for (let i = 0; i < headings.length; i++) {
 // Construct insertion text
 let insertText = `${fileName}`;
 if (hierarchy.length > 0) {
-    insertText += `--${hierarchy.join("--")}`;
+    insertText += `--${hierarchy.filter(Boolean).join("--")}`;
 }
 
 // Remove forbidden filename characters
