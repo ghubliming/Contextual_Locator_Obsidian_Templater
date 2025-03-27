@@ -25,7 +25,15 @@ for (let i = 0; i < headings.length; i++) {
     }
 }
 
-// Construct insertion text
+// Construct insertion text, 2 Order to choose
+/*
+let insertText = "";
+if (hierarchy.length > 0) {
+    insertText = `${hierarchy.filter(Boolean).reverse().join("--")}--`;
+}
+insertText += fileName;
+*/
+
 let insertText = `${fileName}`;
 if (hierarchy.length > 0) {
     insertText += `--${hierarchy.filter(Boolean).join("--")}`;
