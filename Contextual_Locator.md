@@ -2,7 +2,8 @@
 const editor = app.workspace.activeEditor?.editor;
 if (!editor) return;
 
-const fileName = tp.file.title.replace(/\(.*?\)/g, "").trim(); // Remove brackets
+// Remove only the last occurrence of (X) in the title
+const fileName = tp.file.title.replace(/\([^()]*\)$/, "").trim();
 const cursorPos = editor.getCursor();
 const content = editor.getValue();
 
@@ -26,18 +27,18 @@ for (let i = 0; i < headings.length; i++) {
 }
 
 // Construct insertion text, 2 Order to choose
-/*
 let insertText = "";
 if (hierarchy.length > 0) {
     insertText = `${hierarchy.filter(Boolean).reverse().join("--")}--`;
 }
 insertText += fileName;
-*/
 
+/*
 let insertText = `${fileName}`;
 if (hierarchy.length > 0) {
     insertText += `--${hierarchy.filter(Boolean).join("--")}`;
 }
+*/
 
 // Remove forbidden filename characters
 insertText = insertText.replace(/[*"\\/<>:|?]/g, "");
