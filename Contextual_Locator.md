@@ -1,3 +1,4 @@
+
 <%*
 const editor = app.workspace.activeEditor?.editor;
 if (!editor) return;
@@ -41,7 +42,7 @@ if (hierarchy.length > 0) {
 */
 
 // Remove forbidden filename characters
-insertText = insertText.replace(/[*"\\/<>:|?=]/g, "");
+insertText = insertText.replace(/[*"\\/<>:|?=#^\[\]]/g, "");
 
 // Wrap in parentheses
 insertText = `(${insertText})`;
